@@ -1,0 +1,41 @@
+.cart-button {
+    background-color: #DCDCDC;
+    border: 0;
+    padding: 7px 13px;
+    border-radius: 5px;
+}
+
+.cart-button:hover {
+    background-color: #5F9EA0;
+    padding: 7px 13px;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+main {
+    background-color: #f3f3f3;
+    margin: 40px;
+    padding: 20px;
+}
+
+.goods-list {
+    display: flex;
+    justify-content: space-around;
+}
+
+.goods-item {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border: 1px solid white;
+}
+
+.goods-item h3 {
+    text-align: center;
+}
+
+.goods-item p {
+    position: absolute;
+    bottom: 0;
+    right: 16px;
+}
