@@ -51,110 +51,95 @@ class GoodsList {
     }
 }
 
-class Basket {
-    constructor(items) {
-        this.items = items;
+
+// Класс элемента корзины
+class BasketItem {
+    constructor(id, title, price) {
+        this.id = id;
+        this.title = title;
+        this.price = price;
     }
-    get_total_price() {
-        pass;
+    render() {
+        return `<div class="basket-item"><div class="basket-info"><h3>${this.title}</h3><p>${this.price}</p></div><button class='deleteItem' onclick='deleteItem(${this.id})'>&times;</button></div>`;
     }
 }
 
-class BasketItem {
-    constructor(item) {
-        this.item = item;
+
+class Basket {
+    constructor() {
+        this.cartGoods = [];
     }
-    get_price() {
-        pass;
+    // Добавление товара в корзину (привязываем на нажатие кнопки)
+    addToBasket(id) {
+        let toBasket;
+        list.goods.forEach(function(item) {
+            if(id == item.id_product) {
+                toBasket = {
+                    id: item.id_product,
+                    title: item.product_name,
+                    price: item.price,
+                }
+            }
+        });
+        this.cartGoods.push(toBasket);
+        console.log(this.cartGoods);
+        this.basketCount();
     }
-    add_discount() {
-        pass;
+
+    // Удаление товара из корзины (привязываем на нажатие кнопки)
+    deleteFromBasket(id) {
+        let getIdElemen;
+        this.cartGoods.forEach(function(item, i) {
+            let thisId = item.id_product;
+            if(id == thisId) {
+                getIdElemen = i;
+            }
+            
+        });
+        this.cartGoods.splice(getIdElemen, 1);
+        this.render();
+        this.basketCount();
+    }
+
+    // Считаем стоимость товаров в корзине
+    calcAllGoods() {
+        let totalPrice = 0;
+        this.cartGoods.forEach((good) => {
+            if (good.price !== undefined) {
+                totalPrice += good.price;
+            }
+        });
+        let totalGoodsAnswer = "Общая сумма товаров в корзине: $" + totalPrice;
+        document.querySelector('#goods-total').innerHTML = '';
+        document.querySelector('#goods-total').insertAdjacentHTML('beforeend', totalGoodsAnswer);
+    }
+
+    // Считаем количество товаров в корзине и выводим на кнопку
+    basketCount() {
+        let count = this.cartGoods.length;
+        document.querySelector('#cartcoint').innerHTML = '';
+        document.getElementById('cartcoint').insertAdjacentHTML('beforeend', `В корзине ${count} элементов`);
+    }
+
+    // Рендер динамического содержимого корзины
+    render() {
+        let readHtml = '';
+        this.cartGoods.forEach((good) => {
+            const goodItem = new BasketItem(good.id_product, good.product_name, good.price);
+            readHtml += goodItem.render();
+        })
+        document.querySelector('.goods-list').innerHTML = readHtml;
+        this.calcAllGoods();
     }
 }
 
 const list = new GoodsList();
 list.fetchGoods()
 
+document.getElementById('btn').onclick = function () {
+    const one = new Basket();
+    one.addToBasket(123);
+    one.calcAllGoods();
+}
 
-
-
-
-
-
-
-// Задание со ***
-
-// class Hamburger {
-//     constructor(size, stuffing) {
-//         this.size = size;
-//         this.stuffing = stuffing;
-//         this.humberger = {big: {price: 100, call: 40 }, small: {price: 50, call: 20 }}
-//         this.topping = []
-//         this.tops = []
-//         this.stuffing = []
-//     }
-//     fetchGoods() {
-//         this.tops = [
-//             { cheese: { price: 10, cal: 20 }},
-//             { salat: { price: 20, cal: 5 }},
-//             { potato: { price: 15, cal: 10 }},
-//             { dressing: { price: 15, cal: 0 }},
-//             { mayonnaise: { price: 20, cal: 10 }},
-//         ];
-//     }
-
-//     addTopping(topping) {
-//         this.tops.filter(top => {
-//             if (topping in top) {
-//                  this.topping.push(top)
-//                 }
-//             })
-//     } // Добавить добавку
-//     removeTopping(topping) {
-//         this.tops.filter(top => {
-//             if (topping in top) {
-//                  this.topping.pop(top)
-//                 }
-//             })
-//     } // Убрать добавку }
-//     getToppings(topping) {
-//         console.log(this.topping)
-//     }
-//     // Получить список добавок
-//     getSize() {
-//         console.log(`Humburger size is ${this.size}`)
-//     } // Узнать размер гамбургера
-//     getStuffing() {
-//         this.topping.forEach(top => {
-//             this.stuffing.push(Object.keys(top).join())
-//         })
-//         console.log(`this.stuffing=${this.stuffing}`);
-//     } // Узнать начинку гамбургера
-//     calculatePrice() {
-//         let total_price  = 0;
-//         this.topping.forEach(top => {
-//             total_price += +Object.values(top)[0].price
-//         })
-//         console.log(`total_price=${total_price}`);
-//     } // Узнать цену
-//     calculateCalories() {
-//         let total_cal  = 0;
-//         this.topping.forEach(top => {
-//             total_cal += Object.values(top)[0].cal
-//         })
-//         console.log(`total_cal=${total_cal}`);
-//     } // Узнать калорийность
-// }
-
-// let hum = new Hamburger('big', '')
-// hum.getSize();
-// hum.fetchGoods();
-// hum.addTopping('cheese');
-// hum.addTopping('dressing');
-// hum.addTopping('potato');
-// hum.removeTopping('potato');
-// hum.getToppings();
-// hum.getStuffing();
-// hum.calculatePrice();
-// hum.calculateCalories();
 
