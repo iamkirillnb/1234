@@ -54,13 +54,13 @@ class GoodsList {
 
 // Класс элемента корзины
 class BasketItem {
-    constructor(id, title, price) {
-        this.id = id;
-        this.title = title;
+    constructor(id_product, product_name, price) {
+        this.id_product = id_product;
+        this.product_name = product_name;
         this.price = price;
     }
     render() {
-        return `<div class="basket-item"><div class="basket-info"><h3>${this.title}</h3><p>${this.price}</p></div><button class='deleteItem' onclick='deleteItem(${this.id})'>&times;</button></div>`;
+        return `<div class="basket-item"><div class="basket-info"><h3>${this.product_name}</h3><p>${this.price}</p></div><button class='deleteItem' onclick='deleteItem(${this.id_product})'>&times;</button></div>`;
     }
 }
 
@@ -84,6 +84,7 @@ class Basket {
         this.cartGoods.push(toBasket);
         console.log(this.cartGoods);
         this.basketCount();
+        this.render();
     }
 
     // Удаление товара из корзины (привязываем на нажатие кнопки)
