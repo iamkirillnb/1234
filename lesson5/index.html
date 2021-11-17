@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link href="style.css" rel="stylesheet">
+    <title>eShop</title>
+</head>
+<body>
+    <div id="app">
+        <header class="row">
+            <div class="col">
+                <input type="text" class="goods-search" v-model='searchLine' />
+                <button class="search-button" type="button" @click='FilterGoods()'>Искать</button>
+                <button class="cart-button" type="button">Корзина</button>
+            </div>
+            <div class="col">
+                <div class="card basket" v-if="basketItems.length > 0">
+                    <h5>В корзине: {{basketItems.length}} элементов на сумму {{ basketCost }}</h5>
+                </div>
+            </div>
+        </header>
+        <main class="row">
+            <div class="col">
+                <div class="goods-list">
+                    <h3 v-if="filteredGoods.length === 0">Нет данных!</h3>
+                    <div class="goods-item" v-for="good in filteredGoods" :key="good.id_product">
+                        <div class="card" style="width: 18rem;">
+                            <h3 :data-id='good.id_product'>{{ good.product_name }}</h3>
+                            <p>{{ good.price }}&#8381;</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col"></div>
+        </main>
+
+    
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

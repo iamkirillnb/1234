@@ -1,0 +1,13 @@
+.goods-list {
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+    margin: 50px auto 0;
+}
+.goods-list h3 {
+    text-align: center;
+}
+.goods-list p {
+    text-align: right;
+    margin-right: 10px;
+}
